@@ -1,0 +1,11 @@
+pki/ca/ca.key
+pki/certs/**/*.key
+*.pem
+*.p12
+.env
+.env.*
+!.env.example
+audit/logs/scan-*/
+__pycache__/
+*.pyc
+.DS_Store

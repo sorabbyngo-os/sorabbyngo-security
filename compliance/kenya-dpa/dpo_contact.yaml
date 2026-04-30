@@ -1,0 +1,9 @@
+dpo:
+  name: "TBD — Appoint DPO"
+  email: "security@sorabbyngo.co.ke"
+  phone: "+254-XXX-XXXXXX"
+  appointed_date: null
+odpc:
+  email: "complaints@odpc.go.ke"
+  website: "https://www.odpc.go.ke"
+  breach_notification_deadline_hours: 72

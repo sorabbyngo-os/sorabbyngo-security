@@ -1,0 +1,24 @@
+organization: Sorabbyngo Labs
+dpo_email: security@sorabbyngo.co.ke
+effective_date: "2026-01-01"
+retention_periods:
+  patient_records:
+    retention_years: 7
+    legal_basis: "Kenya Health Act 2017, Section 103"
+    storage: "PostgreSQL — AES-256 encrypted at rest"
+  audit_logs:
+    retention_years: 3
+    legal_basis: "Kenya DPA 2019, Section 41"
+  jwt_tokens:
+    retention_hours: 24
+    storage: "In-memory — not persisted"
+  chw_registry:
+    retention_years: 10
+    legal_basis: "Ministry of Health Kenya guidelines"
+  vitals_timeseries:
+    retention_years: 5
+    storage: "InfluxDB — retention policy automatic"
+breach_notification:
+  odpc_deadline_hours: 72
+  odpc_contact: "complaints@odpc.go.ke"
+  playbook: "compliance/playbooks/breach_response.md"
