@@ -1,0 +1,10 @@
+severity: [HIGH, CRITICAL]
+scanners: [vuln, secret, misconfig]
+exit-code: 1
+format: json
+output: "audit/logs/trivy-latest.json"
+ignore-unfixed: false
+skip-dirs: [".git", "node_modules", "__pycache__", ".venv", "novela_env"]
+skip-files: ["**/.env.example", "**/test/**", "**/node_modules/**"]
+secret:
+  config: scanning/trivy-secret.yaml

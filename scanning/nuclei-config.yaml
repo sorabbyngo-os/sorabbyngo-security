@@ -1,0 +1,12 @@
+tags: [owasp, api, auth, injection, exposure, misconfig]
+severity: [high, critical, medium]
+rate-limit: 50
+bulk-size: 10
+concurrency: 5
+timeout: 10
+output: "audit/logs/nuclei-latest.txt"
+json-export: "audit/logs/nuclei-latest.json"
+retries: 2
+header:
+  - "X-Sorabbyngo-Scan: true"
+exclude-tags: [dos, fuzzing, destructive]

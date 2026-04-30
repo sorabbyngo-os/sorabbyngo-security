@@ -1,0 +1,92 @@
+name: Sorabbyngo Security CI
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  compliance:
+    name: Kenya DPA 2019 Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install pyyaml jsonschema
+      - run: python3 compliance/kenya-dpa/check_compliance.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: compliance-report, path: audit/logs/compliance-*.json }
+
+  audit-chain:
+    name: Audit Chain Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python3 audit/verify_chain.py --all
+
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: "."
+          scanners: secret
+          severity: HIGH,CRITICAL
+          format: sarif
+          output: trivy-secrets.sarif
+          exit-code: "1"
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: trivy-secrets.sarif, category: trivy-secrets }
+
+  vuln-scan:
+    name: Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: "."
+          scanners: vuln,misconfig
+          severity: HIGH,CRITICAL
+          format: sarif
+          output: trivy-vuln.sarif
+          exit-code: "1"
+          ignore-unfixed: true
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: trivy-vuln.sarif, category: trivy-vuln }
+
+  policy-check:
+    name: Policy Documents Present
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for f in policies/access_control.md policies/password_policy.md policies/incident_response.md \
+                   compliance/kenya-dpa/data_retention_policy.yaml compliance/kenya-dpa/dpo_contact.yaml \
+                   compliance/playbooks/breach_response.md audit/schema.json pentest/scope.yaml; do
+            [[ -f "$f" ]] && echo "OK: $f" || { echo "MISSING: $f"; exit 1; }
+          done
+
+  security-gate:
+    name: Security Gate
+    needs: [compliance, audit-chain, secret-scan, vuln-scan, policy-check]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - run: |
+          [[ "${{ contains(needs.*.result, 'failure') }}" == "true" ]] && \
+            { echo "Security gate FAILED"; exit 1; } || echo "Security gate PASSED ✓"
