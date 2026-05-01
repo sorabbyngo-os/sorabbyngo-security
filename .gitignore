@@ -11,3 +11,5 @@ __pycache__/
 .DS_Store
 __pycache__/
 .pytest_cache/
+pki/ca/
+pki/certs/
