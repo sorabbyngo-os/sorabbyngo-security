@@ -1,0 +1,127 @@
+{
+  "timestamp": "2026-05-01T05:35:52.775704+00:00",
+  "score": 17,
+  "total": 17,
+  "percentage": 100.0,
+  "results": [
+    {
+      "name": "DPO Appointed",
+      "passed": true,
+      "message": "Appointed: 2026-04-30",
+      "section": "Section 24",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Retention Policy Exists",
+      "passed": true,
+      "message": "5 categories defined",
+      "section": "Section 39",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Patient Record Retention \u226410yr",
+      "passed": true,
+      "message": "Set to 7 years",
+      "section": "Section 39",
+      "severity": "HIGH"
+    },
+    {
+      "name": "72-hour ODPC Notification",
+      "passed": true,
+      "message": "Deadline: 72h",
+      "section": "Section 43",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Breach Response Playbook",
+      "passed": true,
+      "message": "found",
+      "section": "Section 43",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Encryption At Rest Documented",
+      "passed": true,
+      "message": "All documented",
+      "section": "Section 41",
+      "severity": "HIGH"
+    },
+    {
+      "name": "PKI Script Exists",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Root CA Generated",
+      "passed": true,
+      "message": "ca.crt found",
+      "section": "Section 41",
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Secret Rotation Script",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Audit Log Dir",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Audit Schema",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Audit Chain Verifier",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Scan Script",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "HIGH"
+    },
+    {
+      "name": "Trivy Config",
+      "passed": true,
+      "message": "found",
+      "section": "Section 41",
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Policy: access_control.md",
+      "passed": true,
+      "message": "found",
+      "section": "Section 25",
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Policy: password_policy.md",
+      "passed": true,
+      "message": "found",
+      "section": "Section 25",
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Policy: incident_response.md",
+      "passed": true,
+      "message": "found",
+      "section": "Section 25",
+      "severity": "MEDIUM"
+    }
+  ]
+}
