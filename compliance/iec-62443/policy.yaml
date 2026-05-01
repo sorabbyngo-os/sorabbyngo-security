@@ -1,0 +1,55 @@
+# Sorabbyngo — IEC 62443 Security Policy
+# Industrial Automation & Control Systems Security — adapted for AI health OS
+organization: Sorabbyngo
+standard: IEC 62443
+target_sl: SL2      # SL3 for patient data and audit integrity
+effective_date: "2026-04-30"
+
+# Functional Requirements
+fr1_authentication:
+  human_user_auth: JWT + NodeID header (24h expiry)
+  service_auth: mTLS + Sorabbyngo Root CA
+  mfa_required_for: [admin, dpo, security_ops]
+  password_min_length: 12
+
+fr2_use_control:
+  access_control_policy: policies/access_control.md
+  rbac: true
+  least_privilege: enforced
+  session_timeout_minutes: 30
+
+fr3_integrity:
+  audit_chain: SHA-256 hash-chained JSONL
+  audit_verifier: audit/verify_chain.py
+  malware_scanning: YARA + cyberwall scanner
+  kernel_integrity: SELinux enforcing + eBPF XDP
+
+fr4_confidentiality:
+  encryption_at_rest: AES-256 (PostgreSQL, InfluxDB)
+  encryption_in_transit: TLS 1.3 (mTLS for service-to-service)
+  pii_scrubbing: CML PII scrubber on all AI output
+  post_quantum: Kyber (sorabbyngo-cyberwall)
+
+fr5_restricted_data_flow:
+  network_segmentation: nftables zones + DMZ
+  zone_enforcement: Byngonet AISP trust scoring
+  dmz: one-way wall PRIME ↔ untrusted
+
+fr6_timely_response:
+  incident_response: compliance/playbooks/breach_response.md
+  sentinel_monitoring: real-time NATS event stream
+  escalation_sla_minutes: 15
+  odpc_notification_hours: 72
+
+fr7_availability:
+  rate_limiting: token-bucket per service
+  ddos_protection: eBPF XDP drop
+  backup_frequency: daily
+  rto_hours: 4
+  rpo_hours: 1
+
+# Assessment schedule
+assessments:
+  internal_audit: quarterly
+  pentest: quarterly
+  compliance_check_ci: every_push
