@@ -9,7 +9,7 @@ command -v trivy &>/dev/null && {
     echo "[SCAN] Running Trivy filesystem scan..."
     trivy fs --severity HIGH,CRITICAL --format json \
         --output "$REPORT_DIR/trivy-fs.json" \
-        "$(dirname "$0")/../../sorabbyngo-Labs" 2>/dev/null
+        "$(dirname "$0")/../../sorabbyngo-os" 2>/dev/null
 } || echo "[WARN] trivy not installed"
 
 command -v nuclei &>/dev/null && {

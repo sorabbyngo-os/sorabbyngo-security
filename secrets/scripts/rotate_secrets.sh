@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-LABS_ROOT="$(dirname "$0")/../../sorabbyngo-Labs"
+LABS_ROOT="$(dirname "$0")/../../sorabbyngo-os"
 gen_secret() { openssl rand -base64 48 | tr -d '/+=' | head -c 64; }
 
 rotate_jwt() {

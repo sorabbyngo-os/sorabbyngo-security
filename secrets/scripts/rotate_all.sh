@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-LABS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../sorabbyngo-Labs" 2>/dev/null && pwd || echo "$HOME/sorabbyngo-Labs")"
+LABS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../sorabbyngo-os" 2>/dev/null && pwd || echo "$HOME/sorabbyngo-os")"
 GREEN='\033[0;32m';YELLOW='\033[1;33m';RED='\033[0;31m';NC='\033[0m';BOLD='\033[1m'
 log(){ echo -e "${GREEN}[ROTATE]${NC} $*"; }
 warn(){ echo -e "${YELLOW}[WARN]${NC} $*"; }
